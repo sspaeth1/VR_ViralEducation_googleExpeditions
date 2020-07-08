@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>360&deg; Image</title>
+    <meta name="description" content="360&deg; Image - A-Frame">
+    <script src="js/aframe-master.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-sky src="../VR/images_equirectangular/360/Viral_Photospheres_4.jpg" rotation="0 -130 0"></a-sky>
+
+      <a-text font="kelsonsans" value="Biochromatic.copyright |  click/tap and drag" width="6" position="-2.5 0.25 -1.5"
+              rotation="0 15 0"></a-text>
+      <a-ring color="teal" radius-inner="1" radius-outer="2"></a-ring>
+      <a-entity id="river" geometry="primitive: plane" material="color: blue"
+        position="-10 0 0" sound="src: url(../VR/audio/4_desc.mp3); autoplay: true"></a-entity>
+
+    </a-scene>
+  </body>
+</html>

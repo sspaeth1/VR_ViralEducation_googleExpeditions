@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Virology educational 360 image explorer  by Biochroamtic</title>
+    <meta name="description" content="360&deg; Image - A-Frame">
+    <script src="js/aframe-master.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+    <!--animation component script-->
+    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+    
+    <script>
+      AFRAME.registerComponent('hotspots',{
+        init:function(){
+            this.el.addEventListener('reloadspots',function(evt){
+            
+            //get the entire current spot group and scale it to 0
+            var currspotgroup=document.getElementById(evt.detail.currspots);
+            currspotgroup.setAttribute("scale","0 0 0");
+            
+            //get the entire new spot group and scale it to 1
+            var newspotgroup=document.getElementById(evt.detail.newspots);
+            newspotgroup.setAttribute("scale","1 1 1");
+          });
+        }
+      });
+      AFRAME.registerComponent('spot',{
+        schema:{
+          linkto:{type:"string",default:""},
+          spotgroup:{type:"string",default:""}
+        },
+        init:function(){
+          
+          //add image source of hotspot icon
+          this.el.setAttribute("src","#hotspots");
+          //make the icon look at the camera all the time
+          this.el.setAttribute("look-at","#cam");
+          
+          var data=this.data;
+          
+          this.el.addEventListener('click',function(){
+            //set the skybox source to the new image as per the spot
+            var sky=document.getElementById("skybox");
+            sky.setAttribute("src",data.linkto);
+            
+            var spotcomp=document.getElementById("spots");
+            var currspots=this.parentElement.getAttribute("id");
+            //create event for spots component to change the spots data
+            spotcomp.emit('reloadspots',{newspots:data.spotgroup,currspots:currspots});
+          });
+        }
+      });
+    </script>
+ 
+  
+  </head>
+  <body>
+   
+   <a-scene>
+      <a-assets>
+        <img id="point1" src="../VR/images_equirectangular/360/Viral_Photospheres_1.jpg"/>
+        <img id="point2" src="../VR/images_equirectangular/360/Viral_Photospheres_2.jpg"/>
+        <img id="point3" src="../VR/images_equirectangular/360/Viral_Photospheres_3.jpg"/>
+        <img id="point4" src="../VR/images_equirectangular/360/Viral_Photospheres_4.jpg"/>
+        <img id="point5" src="../VR/images_equirectangular/360/Viral_Photospheres_5.jpg"/>
+        <img id="point6" src="../VR/images_equirectangular/360/Viral_Photospheres_6.jpg"/> 
+        <img id="hotspots" src="../VR/images_equirectangular/nextButton.png"/>
+      </a-assets>
+     
+      <a-sky id="skybox" src="#point1" rotation="0 300 0"></a-sky>
+
+
+     
+        <a-entity id="spots" hotspots>
+            <a-entity id="group-point1">
+                  <a-image spot="linkto:#point2;spotgroup:group-point2" position="-4 0 10"></a-image>
+                  <a-text font="kelsonsans" value="How does a virus compare to other objects under the microscope?  Look at this grain of regular table salt.  Three grains of salt stacked on top of each other is roughly 1 millimeter high.   Next, we have an animal cell – which range in size from 10 to 100 microns in length.  Also pictured are a couple of rod-shaped bacteria, or bacillus.  But if you look carefully just beyond that bacteria, there’s a tiny virus. Biochromatic.copyright |  click/tap and drag | Hover the red circle over an arrow to move to the next slide "
+                  width="2" position="-1 1 -2.5" rotation="0 0 0"></a-text>
+                 <!-- <a-text font="kelsonsans" value="Biochromatic.copyright |  click/tap and drag " width="2" position="-2.5 0.25 -1.5"
+              rotation="0 0 0"></a-text>  -->
+              <a-plane color="#fff"   width="2.5" height="1.6" position="0 1 -2.5" rotation="0 0 0" opacity='.2'></a-plane>
+                      <a-entity id="About" geometry="primitive: plane" material="color: blue"
+                  position="-10 0 0" sound="src: url(https://biochromatic.com/VR/audio/1_description.mp3); autoplay: true"></a-entity>
+                  
+                 
+            </a-entity>
+                
+            <a-entity id="group-point2" scale="0 0 0">
+                <a-image spot="linkto:#point3;spotgroup:group-point3" position="-4 0 10"></a-image>
+                <a-text font="kelsonsans" value="Viruses are extremely diverse.  Viral particles are made up of proteins and contain genetic material, and are neither truly alive nor nonliving.  Some of the viruses pictured are responsible for serious human diseases – including the Ebola virus – seen here as a single strand.  The basic elements of a virus include a genetic core which is protected by a layer known as a capsid, and usually an outer envelope.  The genetic core may contain DNA, or RNA which is a simpler version of DNA.    Biochromatic.copyright |  click/tap and drag "
+                width="2" position="-1 1 -2.5" rotation="0 0 0"></a-text>
+              <a-plane color="#fff"   width="2.5" height="1.5" position="0 1 -2.5" rotation="0 0 0" opacity='.2'></a-plane>
+              <a-entity id="About" geometry="primitive: plane" material="color: blue"
+                  position="-10 0 0" sound="src: url(https://biochromatic.com/VR/audio/2_description.mp3); autoplay: true"></a-entity>
+            </a-entity>
+
+
+            <a-entity id="group-point3" scale="0 0 0">
+                <a-image spot="linkto:#point4;spotgroup:group-point4" position="-4 0 10"></a-image>
+                <a-text font="kelsonsans" value="Viruses depend on a host for reproduction. Viruses that infect humans can be spread through contact with bodily fluids or by inhaling fluid droplets that are created during a cough or sneeze.  Surgical masks, made of a nonwoven paper material, can catch these droplets and prevent the wearer from inhaling them. 
+                Biochromatic.copyright |  click/tap and drag "
+                width="2" position="-1 1 -2.5" rotation="0 0 0"></a-text>
+              <a-plane color="#fff"   width="2.5" height="1.5" position="0 1 -2.5" rotation="0 0 0" opacity='.2'></a-plane>
+            </a-entity>
+           
+            <a-entity id="group-point4" scale="0 0 0">
+                <a-image spot="linkto:#point5;spotgroup:group-point5" position="-4 0 10"></a-image>
+                <a-text font="kelsonsans" value="Once a human virus has entered the body it seeks out cells to infect.  The virus attaches to surface proteins on a cell’s outer membrane.  Viruses may release enzymes or trigger the release of certain chemicals that trick the cell into engulfing it.  Once inside, various cellular mechanisms transport the virus to the nucleus where it hijacks the cell’s reproductive equipment.  The virus sheds its protective layers and releases its genetic core into the cell’s nucleus.  Biochromatic.copyright |  click/tap and drag"
+                width="2" position="-1 1 -2.5" rotation="0 0 0"></a-text>
+              <a-plane color="#fff"   width="2.5" height="1.5" position="0 1 -2.5" rotation="0 0 0" opacity='.2'></a-plane>
+            </a-entity>
+
+            <a-entity id="group-point5" scale="0 0 0">
+                <a-image spot="linkto:#point6;spotgroup:group-point6" position="-4 0 10"></a-image>
+                <a-text font="kelsonsans" value="The virus takes over the reproductive mechanisms inside the cell nucleus to replicate. Some RNA viruses must first make DNA in a process called reverse transcription.  This then acts as a ‘recipe’ for all the parts of the virus.  During reproduction, the infected host cell creates and assembles new viral particles using the cloned genetic material as instructions.  These new viruses surround themselves in a layer of the host cell’s membrane and exit the cell.  This process often causes the host cell to die. Biochromatic.copyright |  click/tap and drag"
+                width="2" position="-1 1 -2.5" rotation="0 0 0"></a-text>
+              <a-plane color="#fff"   width="2.5" height="1.5" position="0 1 -2.5" rotation="0 0 0" opacity='.5'></a-plane>
+              </a-entity>
+
+            <a-entity id="group-point6" scale="0 0 0">
+                <a-image spot="linkto:#point1;spotgroup:group-point1" position="-4 0 10"></a-image>
+                <a-text font="kelsonsans" value="There is a lot you can do to prevent yourself and others in your household from catching viral illnesses.  Hand washing has been a pillar of infection prevention since the 19th century and is an important tool against viruses.  Keeping a clean environment and using disinfectants on high-touch surfaces can help prevent creating objects that harbor germs.  Additionally, taking care of yourself at home when you are sick prevents the spread of infection and will help you get well sooner.  Biochromatic.copyright |  click/tap and drag"
+                width="2" position="-1 1 -2.5" rotation="0 0 0"></a-text>
+              <a-plane color="#000"   width="2.5" height="1.5" position="0 1 -2.6" rotation="0 0 0" opacity='.6'></a-plane>
+            </a-entity>
+    </a-entity>
+
+        <a-entity id="cam" camera position="0 1.6 0" look-controls>
+          <a-entity cursor="fuse:true;fuseTimeout:2000"
+                    geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
+                    position="0 0 -1.8"
+                    material="shader:flat;color:#ff0000" 
+                    animation__mouseenter="property:scale;to:3 3 3;startEvents:mouseenter;endEvents:mouseleave;dir:reverse;dur:2000;loop:1">
+          </a-entity>
+    </a-entity>
+
+    </a-scene>
+  </body>
+</html>
